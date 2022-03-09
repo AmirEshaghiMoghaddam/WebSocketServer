@@ -33,9 +33,21 @@ app.get("/", (req, res) => {
 app.post("/message", (req, res) => {
     const data = req.body;
     console.log(data);
-    // 
-    res.send("OK");
+    // Confirm data is received from the WebHook to the WebSocketServer instance
+        res.send("OK");
     // Insert code here to send data to connected clients over websocket.
+    // 
+    wss.clients.forEach(function each(client,index) {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify(data));
+            // Confirm data is sent from the WebHook to all clients connected to the WebSocketServer
+            console.log("data send successfully to clients "+JSON.stringify(index));
+        }
+        else{
+            console.log("data can not send to clients "+JSON.stringify(index));
+        }
+    });
+
 });
 
 app.listen(httpport, () => {
