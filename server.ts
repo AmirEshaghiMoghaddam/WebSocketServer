@@ -33,6 +33,7 @@ app.get("/", (req, res) => {
 app.post("/message", (req, res) => {
     const data = req.body;
     console.log(data);
+    // 
     res.send("OK");
     // Insert code here to send data to connected clients over websocket.
 });
